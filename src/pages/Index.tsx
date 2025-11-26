@@ -5,6 +5,7 @@ import ProfileCard from '@/components/ProfileCard';
 import PromoCard from '@/components/PromoCard';
 import DriverCard from '@/components/DriverCard';
 import TripHistory from '@/components/TripHistory';
+import LiveMap from '@/components/LiveMap';
 import Icon from '@/components/ui/icon';
 import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/hooks/use-toast';
@@ -65,20 +66,28 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="order" className="space-y-4 mt-6">
-            <TaxiOrderCard onOrderSubmit={handleOrderSubmit} />
-            
-            {orderActive && (
-              <DriverCard
-                name="Иван Петров"
-                rating={4.9}
-                car="Volkswagen Polo белый"
-                carNumber="А123БВ 777"
-                arrivalTime="5 мин"
-                reviews={342}
-              />
+            {!orderActive ? (
+              <>
+                <TaxiOrderCard onOrderSubmit={handleOrderSubmit} />
+                <PromoCard />
+              </>
+            ) : (
+              <>
+                <LiveMap
+                  driverName="Иван Петров"
+                  arrivalTime="5 мин"
+                  carNumber="А123БВ 777"
+                />
+                <DriverCard
+                  name="Иван Петров"
+                  rating={4.9}
+                  car="Volkswagen Polo белый"
+                  carNumber="А123БВ 777"
+                  arrivalTime="5 мин"
+                  reviews={342}
+                />
+              </>
             )}
-
-            <PromoCard />
           </TabsContent>
 
           <TabsContent value="profile" className="space-y-4 mt-6">
